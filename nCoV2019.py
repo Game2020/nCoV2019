@@ -183,3 +183,11 @@ def n_co_v2019_from_dict(s):
 def n_co_v2019_to_dict(x):
     return to_class(NCoV2019, x)
 
+
+def n_data_from_dict(s):
+    return Data.from_dict(s)
+
+
+def n_data_to_dict(x):
+    return to_class(Data, x)
+
