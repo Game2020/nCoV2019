@@ -45,3 +45,6 @@ if __name__ == "__main__":
 
     china_total = data.china_total
     print_model(china_total)
+
+    last_update_time = data.last_update_time
+    print(last_update_time)
