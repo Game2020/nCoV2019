@@ -7,6 +7,11 @@ from flask import Flask
 from jinja2 import Markup, Environment, FileSystemLoader
 from pyecharts.globals import CurrentConfig
 
+from nCoV2019 import Data
+from fetchData import fetch_data
+
+from pprint import pprint
+
 # 关于 CurrentConfig，可参考 [基本使用-全局变量]
 CurrentConfig.GLOBAL_ENV = Environment(loader=FileSystemLoader("./templates"))
 
@@ -23,11 +28,18 @@ def bar_base() -> Bar:
     )
     return c
 
+def model_to_str(model):
+    attrs = vars(model)
+    return '\t'.join("%s:\t%s" % item for item in attrs.items())
 
 @app.route("/")
 def index():
+    data = fetch_data()
+    last_update_time = data.last_update_time
+    china_total = data.china_total
+
     c = bar_base()
-    return Markup(c.render_embed())
+    return last_update_time + "china_total: " + head + "\n" +  Markup(c.render_embed())
 
 
 if __name__ == "__main__":
